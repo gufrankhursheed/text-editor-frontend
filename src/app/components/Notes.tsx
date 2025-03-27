@@ -8,12 +8,21 @@ export default function Notes() {
     const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff"]
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
+        const updateNotes = () => {
             const existingDataString = localStorage.getItem("myData");
             const existingData = existingDataString ? JSON.parse(existingDataString) : [];
             setNotes(existingData);
-        }
+        };
+
+        updateNotes(); 
+
+        window.addEventListener("storage", updateNotes);
+
+        return () => {
+            window.removeEventListener("storage", updateNotes);
+        };
     }, []);
+
 
     if (notes === null) return <p className="text-white text-center">Loading notes...</p>;
 
