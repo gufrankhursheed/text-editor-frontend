@@ -7,7 +7,7 @@ import Notes from "../components/Notes";
 
 export default function Dashboard() {
     const router = useRouter();
-    const [notes, setNotes] = useState<{ id: string; content: string }[]>([]);
+    const [, setNotes] = useState<{ id: string; content: string }[]>([]);
 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function Dashboard() {
 
 
     const handleLogout = async () => {
-        await fetch("http://localhost:5000/auth/logout", { credentials: "include" });
+        await fetch("https://text-editor-backend-mavr.onrender.com/auth/logout", { credentials: "include" });
         localStorage.removeItem("token");
         router.push("/");
     };

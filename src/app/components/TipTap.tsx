@@ -4,7 +4,7 @@ import { useEditor, EditorContent, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from "@tiptap/extension-underline";
 import Toolbar from './Toolbar';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface TiptapProps {
     onChange: (newContent: string) => void;

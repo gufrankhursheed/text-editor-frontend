@@ -34,7 +34,7 @@ export default function NotePicker({ setNotes }: NotePickerProps) {
         localStorage.setItem('myData', JSON.stringify(updatedData))
 
         setNotes(updatedData);
-        
+
         setContent('')
         editor?.commands.clearContent();
     }
@@ -52,7 +52,7 @@ export default function NotePicker({ setNotes }: NotePickerProps) {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/drive/save', {
+            const response = await fetch('https://text-editor-backend-mavr.onrender.com/drive/save', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
