@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import NotePicker from "../components/NotePicker";
 import Notes from "../components/Notes";
 
 export default function Dashboard() {
     const router = useRouter();
+    const [notes, setNotes] = useState<{ id: string; content: string }[]>([]);
+
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -22,6 +24,7 @@ export default function Dashboard() {
             }
         }
     }, [router]);
+
 
     const handleLogout = async () => {
         await fetch("http://localhost:5000/auth/logout", { credentials: "include" });
@@ -39,7 +42,7 @@ export default function Dashboard() {
                     Logout
                 </button>
             </div>
-            <NotePicker />
+            <NotePicker setNotes={setNotes} />
             <Notes />
         </div>
     );

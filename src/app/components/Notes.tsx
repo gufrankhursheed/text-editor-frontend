@@ -3,28 +3,30 @@
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
+interface NotesProps {
+    notes: { id: string; content: string }[];
+}
+
 export default function Notes() {
-    const [data, setData] = useState<string[]>([]);
-    const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff"];
-    const [isMounted, setIsMounted] = useState(false);
+    const [notes, setNotes] = useState<{ id: string; content: string }[] | null>(null);
+    const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff"]
 
     useEffect(() => {
-        setIsMounted(true)
-        const existingDataString = localStorage.getItem("myData");
-        if (existingDataString) {
-            const existingData = JSON.parse(existingDataString);
-            setData(existingData);
+        if (typeof window !== "undefined") {
+            const existingDataString = localStorage.getItem("myData");
+            const existingData = existingDataString ? JSON.parse(existingDataString) : [];
+            setNotes(existingData);
         }
     }, []);
 
-    if (!isMounted) return null;
+    if (notes === null) return <p className="text-white text-center">Loading notes...</p>;
 
     return (
         <div className="max-w-6xl mx-auto px-5">
             <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 750: 2, 1024: 3 }}>
                 <Masonry gutter="20px">
-                    {data.map((item: any, idx: number) => (
-                        <div key={idx} style={{ color: colors[idx % colors.length] }}>
+                    {notes.map((item, idx) => (
+                        <div key={item.id} style={{ color: colors[idx % colors.length] }}>
                             <div
                                 className="px-4 py-3 font-bold text-slate-950"
                                 style={{ backgroundColor: colors[idx % colors.length] }}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from "@tiptap/extension-underline";
 import Toolbar from './Toolbar';
@@ -9,9 +9,10 @@ import { useEffect, useState } from 'react';
 interface TiptapProps {
     onChange: (newContent: string) => void;
     content: string;
+    setEditor: (editor: Editor | null) => void;
 }
 
-export default function Tiptap({ onChange, content }: TiptapProps) {
+export default function Tiptap({ onChange, content, setEditor }: TiptapProps) {
     const handleChange = (newContent: string) => {
         onChange(newContent);
     };
@@ -30,6 +31,9 @@ export default function Tiptap({ onChange, content }: TiptapProps) {
         immediatelyRender: false,
     })
 
+    useEffect(() => {
+        setEditor(editor);
+    }, [editor, setEditor]);
 
     return (
         <div className="w-full px-4">
