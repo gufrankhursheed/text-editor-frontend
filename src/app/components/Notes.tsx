@@ -3,10 +3,6 @@
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-interface NotesProps {
-    notes: { id: string; content: string }[];
-}
-
 export default function Notes() {
     const [notes, setNotes] = useState<{ id: string; content: string }[] | null>(null);
     const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#ffccff"]
